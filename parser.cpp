@@ -71,7 +71,9 @@ StatList* Parser::parse_stat_list()
 {
 	auto node = alloc_stat_list();
 	while (!STAT_LIST_CLOSE_KEYWORDS[ (int)m_tok.peek() ]) {
-		node->stats.push_back( parse_statement() );
+		Statement* stat = parse_statement();
+		m_tok.try_consume(T::Semicolon, *stat->tokens);
+		node->stats.push_back(stat);
 	}
 	return node;
 }

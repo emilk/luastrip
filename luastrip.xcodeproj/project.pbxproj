@@ -15,13 +15,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		800FC8F71996249500D85148 /* CopyFiles */ = {
+		800FC8F71996249500D85148 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -57,19 +58,19 @@
 		800FC8F01996249500D85148 = {
 			isa = PBXGroup;
 			children = (
-				800FC905199624D600D85148 /* util.hpp */,
-				800FC906199624D600D85148 /* util.cpp */,
-				800FC907199624D600D85148 /* parser.hpp */,
-				800FC908199624D600D85148 /* parser.cpp */,
-				800FC909199624D600D85148 /* output.hpp */,
-				800FC90A199624D600D85148 /* output.cpp */,
-				800FC90B199624D600D85148 /* main.cpp */,
-				800FC90C199624D600D85148 /* lexer.hpp */,
-				800FC90D199624D600D85148 /* lexer.cpp */,
-				800FC90E199624D600D85148 /* stripper.hpp */,
+				800FC911199624D600D85148 /* allocator.hpp */,
 				800FC90F199624D600D85148 /* ast.hpp */,
 				800FC910199624D600D85148 /* ast_visitor.hpp */,
-				800FC911199624D600D85148 /* allocator.hpp */,
+				800FC90D199624D600D85148 /* lexer.cpp */,
+				800FC90C199624D600D85148 /* lexer.hpp */,
+				800FC90B199624D600D85148 /* main.cpp */,
+				800FC90A199624D600D85148 /* output.cpp */,
+				800FC909199624D600D85148 /* output.hpp */,
+				800FC908199624D600D85148 /* parser.cpp */,
+				800FC907199624D600D85148 /* parser.hpp */,
+				800FC90E199624D600D85148 /* stripper.hpp */,
+				800FC906199624D600D85148 /* util.cpp */,
+				800FC905199624D600D85148 /* util.hpp */,
 				800FC8FA1996249500D85148 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,7 +92,7 @@
 			buildPhases = (
 				800FC8F51996249500D85148 /* Sources */,
 				800FC8F61996249500D85148 /* Frameworks */,
-				800FC8F71996249500D85148 /* CopyFiles */,
+				800FC8F71996249500D85148 /* Copy Files */,
 			);
 			buildRules = (
 			);

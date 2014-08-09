@@ -125,6 +125,10 @@ public:
 		}
 	}
 	
+	inline size_t num_left() const {
+		return tl.size() - ix;
+	}
+	
 	inline void consume_rest()
 	{
 		ix = tl.size();
@@ -232,11 +236,19 @@ public:
 		append_raw(str, str + strlen(str));
 	}
 	
-	inline void put_comma_semicolon()
+	inline void put_optional_comma_semicolon()
 	{
 		assert(ix < tl.size());
 		if (tl[ix]->type == T::Comma ||
 			 tl[ix]->type == T::Semicolon)
+		{
+			put_next_token();
+		}
+	}
+	
+	inline void put_optional_semicolon()
+	{
+		if (ix < tl.size() && tl[ix]->type == T::Semicolon)
 		{
 			put_next_token();
 		}
@@ -397,6 +409,8 @@ public:
 		else {
 			assert(false);
 		}
+		
+		tf.put_optional_semicolon();
 	}
 
 	void expr(const Expression* arg)
@@ -468,7 +482,7 @@ public:
 					tf.put(T::Assign);
 				}
 				expr(entry.value);
-				tf.put_comma_semicolon();
+				tf.put_optional_comma_semicolon();
 			}
 			tf.put(T::CurlyEnd);
 		}

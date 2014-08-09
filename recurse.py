@@ -22,4 +22,4 @@ for file_root, subFolders, files in os.walk(in_root):
 			#print("root_rel: " + root_rel)
 			#print("in_path: " + in_path)
 			#print("out_path: " + out_path)
-			os.system("./solpp -o " + out_path + " " + in_path)
+			os.system("./luastrip -o " + out_path + " " + in_path)
