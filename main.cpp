@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include "lexer.hpp"
 #include "parser.hpp"
 #include "output.hpp"
@@ -29,7 +30,7 @@ void point_to_source(const char* src, unsigned line, unsigned col)
 		++src;
 	}
 	putchar('\n');
-	for (int i=1; i<col; ++i) {
+	for (unsigned i=1; i<col; ++i) {
 		putchar(' ');
 	}
 	putchar('^');

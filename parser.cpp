@@ -243,7 +243,7 @@ Statement* Parser::parse_statement()
 	else {
 		auto suffixed = parse_suffixed_expr();
 		
-		if (m_tok.peek() == T::Comma or m_tok.peek() == T::Assign)
+		if (m_tok.peek() == T::Comma || m_tok.peek() == T::Assign)
 		{
 			const size_t GUESSED_NUM = 2;
 			auto tl = alloc_tok_list();
@@ -340,7 +340,7 @@ Statement* Parser::parse_statement()
 		else
 		{
 			auto call_expr = dynamic_cast<CallExpr*>(suffixed);
-			p_assert(call_expr, "Call epxression expected");
+			p_assert(call_expr != nullptr, "Call epxression expected");
 			auto node = alloc_stat<CallStat>(tl);
 			node->expr = call_expr;
 			return node;

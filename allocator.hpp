@@ -4,6 +4,8 @@
 #include <vector>
 #include <utility> // max
 #include <cassert>
+#include <cstdint> // uint8_t
+#include <algorithm>  // std::max
 
 // ----------------------------------------
 
@@ -66,7 +68,7 @@ public:
 		return ret;
 #endif
 	}
-	
+
 	// Helper:
 	template<typename T, typename... Args>
 	inline T* make(Args&&... args)
@@ -115,16 +117,18 @@ public:
 	// Does not own the allocator - just refers to it!
 	inline STLAllocator(Allocator& allocator) : m_allocator(allocator) {}
 	
-	inline STLAllocator(const STLAllocator& other) : m_allocator(other.m_allocator) {}
+	inline STLAllocator(const STLAllocator& other) : m_allocator(other.allocator()) {}
 	
 	// Used by STL:
 	template<typename U>
-	inline STLAllocator(const STLAllocator<U>& other) : m_allocator(other.m_allocator)
+	inline STLAllocator(const STLAllocator<U>& other) : m_allocator(other.allocator())
 	{}
 
 	inline ~STLAllocator() {
 	}
 	
+
+	Allocator& allocator() const { return m_allocator; }
 	
 	inline pointer       address(reference r)       { return &r; }
 	inline const_pointer address(const_reference r) { return &r; }
