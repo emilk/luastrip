@@ -89,6 +89,12 @@ public:
 		else if (auto node = dynamic_cast<DoStat*>(arg)) {
 			stat_list(node->body);
 		}
+		else if (auto node = dynamic_cast<const LabelStat*>(arg)) {
+
+		}
+		else if (auto node = dynamic_cast<const GotoStat*>(arg)) {
+
+		}
 		else if (dynamic_cast<TypedefStat*>(arg)) {
 			// Ignored
 		}
@@ -101,7 +107,7 @@ public:
 			//
 		}
 		else {
-			assert(false);
+			throw std::runtime_error("Uknown statement: "+ std::string(typeid(*arg).name()));
 		}
 		
 		return Nothing;
@@ -173,9 +179,9 @@ public:
 			fun_type(node->type);
 			stat_list(node->body);
 		}
-		
+
 		else {
-			assert(false);
+			throw std::runtime_error("Uknown expression: "+ std::string(typeid(*arg).name()));
 		}
 	}
 	

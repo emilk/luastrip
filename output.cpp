@@ -389,6 +389,15 @@ public:
 			stat_list(node->body);
 			tf.put(T::End);
 		}
+		else if (auto node = dynamic_cast<const LabelStat*>(arg)) {
+			tf.put(T::Label); // ::
+			tf.put(node->label);
+			tf.put(T::Label); // ::
+		}
+		else if (auto node = dynamic_cast<const GotoStat*>(arg)) {
+			tf.put(T::Goto);
+			tf.put(node->label);
+		}
 		else if (dynamic_cast<const TypedefStat*>(arg)) {
 			// Ignored
 			tf.consume_rest();
@@ -407,7 +416,7 @@ public:
 			tf.skip(T::Eof);
 		}
 		else {
-			assert(false);
+			throw std::runtime_error("Uknown statement: "+ std::string(typeid(*arg).name()));
 		}
 		
 		tf.put_optional_semicolon();
@@ -506,7 +515,7 @@ public:
 		}
 		
 		else {
-			assert(false);
+			throw std::runtime_error("Uknown expression: "+ std::string(typeid(*arg).name()));
 		}
 	}
 
