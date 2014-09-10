@@ -108,12 +108,12 @@ public:
 	sol_error(unsigned line, unsigned col, std::string what)
 	: m_line(line), m_col(col), m_what(what) {}
 	
-	const char* what() const noexcept override {
+	const char* what() const override {
 		return m_what.c_str();
 	}
 	
-	unsigned line() const noexcept { return m_line; }
-	unsigned col()  const noexcept { return m_col; }
+	unsigned line() const { return m_line; }
+	unsigned col()  const { return m_col; }
 	
 private:
 	unsigned m_line, m_col;

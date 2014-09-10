@@ -7,6 +7,7 @@
 #include "stripper.hpp"
 
 bool g_spam = true;
+StringList g_call_bases, g_function_names;
 
 
 void point_to_source(const char* src, unsigned line, unsigned col)
@@ -78,7 +79,8 @@ void parse(const char* in_file, const char* out_file)
 			}
 			
 			tic = clock();
-			Stripper stripper;
+
+			Stripper stripper(g_call_bases, g_function_names);
 			stripper.stat_list( parser.root() );
 			if (g_spam) {
 				auto toc = clock();
@@ -118,7 +120,19 @@ void parse(const char* in_file, const char* out_file)
 
 void print_usage()
 {
-	printf("Usage:  solstrip -o dest file_path\n    -v  verbose\n");
+	const char* usage = R"( Usage:
+-fun foo   - will strip all calls on the form foo(...)
+-fb  Bar   - will strip all calls on the form Bar.baz(...)
+-o   dest  - will write the output here
+--v        - turn on verbose output
+
+Several -fun and -fb can be added. All will be used.
+All matching is case sensitive and matches whole words.
+
+Examples:
+	solstrip --v -fun assert -o stripped.lua input.lua
+)";
+	printf(usage);
 }
 
 
@@ -146,10 +160,16 @@ int main(int argc, const char* argv[])
 	g_spam = false;
 	const char* out_path = nullptr;
 	for (int i=1; i<argc; ++i) {
-		if (strcmp(argv[i], "-v") == 0) {
+		if (strcmp(argv[i], "--v") == 0) {
 			g_spam = true;
 		} else if (strcmp(argv[i], "-o") == 0) {
-			out_path = argv[i+1];
+			out_path = argv[i + 1];
+			++i;
+		} else if (strcmp(argv[i], "-fb") == 0) {
+			g_call_bases.push_back(argv[i + 1]);
+			++i;
+		} else if (strcmp(argv[i], "-fun") == 0) {
+			g_function_names.push_back(argv[i + 1]);
 			++i;
 		} else {
 			parse(argv[i], out_path);
